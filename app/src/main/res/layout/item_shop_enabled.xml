@@ -28,7 +28,7 @@
             android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:text="Картошка" />
+             />
 
         <TextView
             android:id="@+id/tv_count"
@@ -37,6 +37,6 @@
             android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:text="1" />
+             />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
