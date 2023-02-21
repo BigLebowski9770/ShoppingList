@@ -5,8 +5,9 @@ import com.example.shoppinglist.domain.ShopItem
 
 class ShopListDiffCallback(
     private val oldList: List<ShopItem>,
-    private val newList: List<ShopItem>
+    private val newList: List<ShopItem>,
 ): DiffUtil.Callback() {
+
     override fun getOldListSize(): Int {
         return oldList.size
     }
@@ -16,14 +17,14 @@ class ShopListDiffCallback(
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldListId = oldList[oldItemPosition]
-        val newListId = newList[newItemPosition]
-        return oldListId.id == newListId.id
+        val oldItem = oldList[oldItemPosition]
+        val newItem = newList[newItemPosition]
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldListId = oldList[oldItemPosition]
-        val newListId = newList[newItemPosition]
-        return oldListId == newListId
+        val oldItem = oldList[oldItemPosition]
+        val newItem = newList[newItemPosition]
+        return oldItem == newItem
     }
 }

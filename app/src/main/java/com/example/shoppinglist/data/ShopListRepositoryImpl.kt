@@ -8,7 +8,7 @@ import com.example.shoppinglist.domain.ShopListRepository
 import kotlin.random.Random
 
 
-class ShopListRepositoryImpl() : ShopListRepository {
+object ShopListRepositoryImpl : ShopListRepository {
 
     private val shopListLD = MutableLiveData<List<ShopItem>>()
     private val shopList = sortedSetOf<ShopItem>({ o1, o2 -> o1.id.compareTo(o2.id) })

@@ -4,19 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shoppinglist.data.ShopListRepositoryImpl
-import com.example.shoppinglist.domain.*
-import java.util.concurrent.CountDownLatch
+import com.example.shoppinglist.domain.AddShopItemUseCase
+import com.example.shoppinglist.domain.EditShopItemUseCase
+import com.example.shoppinglist.domain.GetShopItemUseCase
+import com.example.shoppinglist.domain.ShopItem
 
 class ShopItemViewModel : ViewModel() {
 
-    private val repository = ShopListRepositoryImpl()
+    private val repository = ShopListRepositoryImpl
 
     private val getShopItemUseCase = GetShopItemUseCase(repository)
     private val addShopItemUseCase = AddShopItemUseCase(repository)
     private val editShopItemUseCase = EditShopItemUseCase(repository)
 
     private val _errorInputName = MutableLiveData<Boolean>()
-
     val errorInputName: LiveData<Boolean>
         get() = _errorInputName
 
@@ -24,11 +25,9 @@ class ShopItemViewModel : ViewModel() {
     val errorInputCount: LiveData<Boolean>
         get() = _errorInputCount
 
-
     private val _shopItem = MutableLiveData<ShopItem>()
     val shopItem: LiveData<ShopItem>
         get() = _shopItem
-
 
     private val _shouldCloseScreen = MutableLiveData<Unit>()
     val shouldCloseScreen: LiveData<Unit>
@@ -56,11 +55,10 @@ class ShopItemViewModel : ViewModel() {
         val fieldsValid = validateInput(name, count)
         if (fieldsValid) {
             _shopItem.value?.let {
-                val item = it.copy(name = name, count = count, )
+                val item = it.copy(name = name, count = count)
                 editShopItemUseCase.editShopItem(item)
                 finishWork()
             }
-
         }
     }
 
@@ -77,25 +75,23 @@ class ShopItemViewModel : ViewModel() {
     }
 
     private fun validateInput(name: String, count: Int): Boolean {
-        val result = true
+        var result = true
         if (name.isBlank()) {
             _errorInputName.value = true
-
-            !result
+            result = false
         }
         if (count <= 0) {
             _errorInputCount.value = true
-
-            !result
+            result = false
         }
         return result
     }
 
-    public fun resetErrorInputName() {
+    fun resetErrorInputName() {
         _errorInputName.value = false
     }
 
-    public fun resetErrorInputCount() {
+    fun resetErrorInputCount() {
         _errorInputCount.value = false
     }
 
